@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1089555438792",
+    "project_id": "fastcampuschatting",
+    "storage_bucket": "fastcampuschatting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089555438792:android:c7645b93ff0fc8f98a59fd",
+        "android_client_info": {
+          "package_name": "kr.co.seonguk.application.fastcampuschatting"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5sAQ0Jh8JeDQIayOjE-XtvtflSdwiusA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
