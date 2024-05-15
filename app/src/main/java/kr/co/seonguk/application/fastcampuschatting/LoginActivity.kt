@@ -8,6 +8,8 @@ import android.util.Log
 import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.google.firebase.database.database
+import kr.co.seonguk.application.fastcampuschatting.Key.Companion.DB_USERS
 import kr.co.seonguk.application.fastcampuschatting.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -70,7 +72,20 @@ class LoginActivity : AppCompatActivity() {
                 }else{
                     Firebase.auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener { task ->
-                            if (task.isSuccessful){
+
+                            val currentUser = Firebase.auth.currentUser
+
+                            if (task.isSuccessful && currentUser != null){
+                                //유저 아이디값 가져오기
+                                val userId = currentUser.uid
+
+                                val user = mutableMapOf<String, Any>()
+                                user["userId"] = userId
+                                user["userName"] = email
+
+                                Firebase.database.reference.child(DB_USERS).child(userId).updateChildren(user)
+
+
                                 //로그인 성공
                                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                             }else{
