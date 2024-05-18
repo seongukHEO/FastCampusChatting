@@ -73,9 +73,10 @@ class ChatActivity : AppCompatActivity() {
                     val chatItem = snapshot.getValue(ChatItem::class.java)
                     chatItem ?: return
 
+
                     chatItemList.add(chatItem)
 
-                    chatAdapter.submitList(chatItemList)
+                    chatAdapter.submitList(chatItemList.toMutableList())
 
                 }
 
