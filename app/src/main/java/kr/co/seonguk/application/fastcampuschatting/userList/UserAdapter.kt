@@ -7,13 +7,18 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.seonguk.application.fastcampuschatting.databinding.ItemUserBinding
 
-class UserAdapter : ListAdapter<UserItem, UserAdapter.ViewHolder>(differ) {
+class UserAdapter(private val onClick : (UserItem) -> Unit) : ListAdapter<UserItem, UserAdapter.ViewHolder>(differ) {
 
     inner class ViewHolder(val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(item: UserItem){
             binding.nicknameTextView.text = item.userName
             binding.descriptionTextView.text = item.description
+
+            //이건 람다를 사용한 클릭 리스너
+            binding.root.setOnClickListener {
+                onClick(item)
+            }
         }
     }
 

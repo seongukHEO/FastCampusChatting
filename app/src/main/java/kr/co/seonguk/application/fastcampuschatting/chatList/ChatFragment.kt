@@ -1,5 +1,6 @@
 package kr.co.seonguk.application.fastcampuschatting.chatList
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -12,6 +13,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.database
 import kr.co.seonguk.application.fastcampuschatting.Key.Companion.DB_CHAT_ROOMS
 import kr.co.seonguk.application.fastcampuschatting.R
+import kr.co.seonguk.application.fastcampuschatting.chatdetail.ChatActivity
 import kr.co.seonguk.application.fastcampuschatting.databinding.FragmentChatlistBinding
 import kr.co.seonguk.application.fastcampuschatting.databinding.FragmentUserBinding
 
@@ -19,7 +21,13 @@ class ChatFragment : Fragment(R.layout.fragment_chatlist) {
 
     private lateinit var binding: FragmentChatlistBinding
 
-    val chatListAdapter = ChatListAdapter()
+    val chatListAdapter = ChatListAdapter{ chatRoomItem ->
+
+        val newIntent = Intent(context, ChatActivity::class.java)
+        newIntent.putExtra("otherUserId", chatRoomItem.otherUserId)
+        newIntent.putExtra("chatRoomId", chatRoomItem.chatRoomId)
+        startActivity(newIntent)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

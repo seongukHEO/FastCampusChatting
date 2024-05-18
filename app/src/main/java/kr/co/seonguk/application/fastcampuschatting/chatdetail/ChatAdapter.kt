@@ -1,19 +1,38 @@
 package kr.co.seonguk.application.fastcampuschatting.chatdetail
 
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import kr.co.seonguk.application.fastcampuschatting.chatList.ChatRoomItem
 import kr.co.seonguk.application.fastcampuschatting.databinding.ItemChatBinding
 import kr.co.seonguk.application.fastcampuschatting.databinding.ItemChatroomBinding
+import kr.co.seonguk.application.fastcampuschatting.userList.UserItem
 
-class ChatAdapter : ListAdapter<ChatItem, ChatAdapter.ViewHolder>(differ) {
+class ChatAdapter() : ListAdapter<ChatItem, ChatAdapter.ViewHolder>(differ) {
+
+    var otherUserItem: UserItem? = null
 
     inner class ViewHolder(val binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(item: ChatItem){
-            binding.messageTextView.text = item.message
+            if (item.userId == otherUserItem?.userId){
+                //상대방이 보냈을 때
+                binding.userNameTextView.isVisible = true
+                binding.userNameTextView.text = otherUserItem?.userName
+                binding.messageTextView.text = item.message
+                binding.messageTextView.gravity = Gravity.START
+            }else{
+                //내가 보냈을 때
+                binding.userNameTextView.isVisible = false
+                binding.messageTextView.text = item.message
+                binding.messageTextView.gravity = Gravity.END
+            }
+
+
         }
     }
 
